@@ -7,7 +7,23 @@
 {% block body %}
     <body>
         <h1>Faça seu login</h1>
-        <h3>Detalhes do usuario.</h3>
+        <h3>Insira os detalhes do usuario.</h3>
+        <form method="POST">
+
+            {{ form.csrf_token }}
+
+            {{ form.email.label() }}
+            {{ form.email()}}
+
+            {{ form.senha.label() }}
+            {{ form.senha()}}
+
+            {{ form.botao_confirmacao() }}
+
+        </form>
+
+
+
 
         <a href="{{ url_for('homepage') }}">Sair</a>
     </body>

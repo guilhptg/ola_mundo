@@ -7,7 +7,6 @@ from sqlalchemy.orm import backref
 from ola_mundo import database, login_manager
 from datetime import datetime
 from flask_login import UserMixin
-from ola_mundo.routes import login
 
 
 @login_manager.user_loader
@@ -28,3 +27,10 @@ class Foto(database.Model):
     imagem =database.Column(database.String, default='default.png')
     data_criacao = database.Column(database.DateTime, nullable=False, default=datetime.utcnow())
     id_usuario = database.Column(database.Integer, database.ForeignKey('usuario.id'), nullable=False)
+
+#
+# class Projeto(database.Model):
+#     id = database.Column(database.Integer, primary_key=True)
+#     nome = database.Column(database.String, nullable=False)
+#     seguimento = database.Column(database.String, nullable=False)
+#     descricao = database.Column(database.String, nullable=False)
