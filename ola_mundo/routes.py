@@ -8,6 +8,11 @@ def homepage():
     return render_template('homepage.html')
 
 
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+
 @app.route('/perfil/<usuario>')
 def perfil(usuario):
     return render_template('perfil.html', usuario=usuario)
