@@ -32,5 +32,5 @@ class Foto(database.Model):
 # class Projeto(database.Model):
 #     id = database.Column(database.Integer, primary_key=True)
 #     nome = database.Column(database.String, nullable=False)
-#     seguimento = database.Column(database.String, nullable=False)
+#     categoria = database.Column(database.String, nullable=False)
 #     descricao = database.Column(database.String, nullable=False)

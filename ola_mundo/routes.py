@@ -2,8 +2,12 @@
 from crypt import methods
 
 from flask import render_template, url_for, request
-from ola_mundo import app
-from flask_login import login_required
+from werkzeug.utils import redirect
+from wtforms.validators import email
+
+from ola_mundo import app, bcrypt, database
+from ola_mundo.models import Usuario, Foto
+from flask_login import login_required, login_user, logout_user
 from ola_mundo.forms import FormLogin, FormCriarConta
 
 
@@ -21,9 +25,19 @@ def login():
     return render_template('login.html', form=formlogin)
 
 
-@app.route('/criarconta')
+@app.route('/criarconta', methods=['GET', 'POST'])
 def criar_conta():
     formcriarconta = FormCriarConta()
+    if formcriarconta.validate_on_submit():
+        senha = bcrypt.generate_password_hash(formcriarconta.senha.data)
+        usuario = Usuario(
+            username=formcriarconta.username.data,
+            senha=senha,
+            email=formcriarconta.email.data)
+        database.session.add(usuario)
+        database.session.commit()
+        login_user(usuario, remember=True)
+        return redirect('perfil', usuario=usuario.username)
 
     return render_template('criarconta.html', form=formcriarconta)
 
