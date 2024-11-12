@@ -1,14 +1,16 @@
 # é o views do django
 from crypt import methods
+from idlelib.pyshell import idle_showwarning
 
-from flask import render_template, url_for, request
+from flask import render_template, url_for, request, current_app
+from sqlalchemy.sql.functions import current_user
 from werkzeug.utils import redirect
 from wtforms.validators import email
 
 from ola_mundo import app, bcrypt, database
 from ola_mundo.models import Usuario, Foto
 from flask_login import login_required, login_user, logout_user
-from ola_mundo.forms import FormLogin, FormCriarConta
+from ola_mundo.forms import FormLogin, FormCriarConta, FormProjetos
 
 
 @app.route('/')
@@ -23,7 +25,7 @@ def login():
         usuario = Usuario.query.filter_by(email=formlogin.email.data).first()
         if usuario and bcrypt.check_password_hash(usuario.senha, formlogin.senha.data):
             login_user(usuario)
-            return redirect(url_for('perfil', usuario=usuario.username))
+            return redirect(url_for('perfil', id_usuario=usuario.id))
     return render_template('login.html', form=formlogin)
 
 
@@ -43,10 +45,15 @@ def criar_conta():
     return render_template('criarconta.html', form=formcriarconta)
 
 
-@app.route('/perfil/<usuario>')
+@app.route('/perfil/<id_usuario>')
 @login_required
-def perfil(usuario):
-    return render_template('perfil.html', usuario=usuario)
+def perfil(id_usuario):
+    if int(id_usuario) == int(current_user.id):
+        # acessar o própipo perfil
+        return render_template('perfil.html', usuario=current_user)
+    else:
+        usuario = Usuario.query.get(int(id_usuario))
+        return render_template('perfil.html', usuario=usuario)
 
 
 @app.route('/logout')
@@ -58,4 +65,7 @@ def logout():
 
 @app.route('/projetos')
 def projetos():
+    formprojetos = FormProjetos()
+    if formprojetos.validate_on_submit():
+        pass
     return render_template('projetos.html')

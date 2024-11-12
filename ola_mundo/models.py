@@ -28,9 +28,11 @@ class Foto(database.Model):
     data_criacao = database.Column(database.DateTime, nullable=False, default=datetime.utcnow())
     id_usuario = database.Column(database.Integer, database.ForeignKey('usuario.id'), nullable=False)
 
-#
-# class Projeto(database.Model):
-#     id = database.Column(database.Integer, primary_key=True)
-#     nome = database.Column(database.String, nullable=False)
-#     categoria = database.Column(database.String, nullable=False)
-#     descricao = database.Column(database.String, nullable=False)
+
+class Projeto(database.Model):
+    id = database.Column(database.Integer, primary_key=True)
+    nome = database.Column(database.String, nullable=False)
+    categoria = database.Column(database.String, nullable=False)
+    descricao = database.Column(database.String, nullable=False)
+    link_repositorio = database.Column(database.String, nullable=False)
+    icone = database.Column(database.String, nullable=False)

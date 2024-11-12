@@ -9,6 +9,13 @@
         <h1>Perfil</h1>
         <h3>Detalhes do usuario, {{ usuario }}</h3>
 
+            <img src="{{ url_for('static', filename='fotos_posts/cyclone.jpeg') }}">
+
+            {% for foto in usuario.fotos %}
+            {{ foto }}
+            {% endfor %}
+
+
         <a href="{{ url_for('logout') }}">Sair</a>
     </body>
 {% endblock %}
