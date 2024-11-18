@@ -24,15 +24,10 @@ class Usuario(database.Model, UserMixin):
 
 class Foto(database.Model):
     id = database.Column(database.Integer, primary_key=True)
-    imagem =database.Column(database.String, default='default.png')
-    data_criacao = database.Column(database.DateTime, nullable=False, default=datetime.utcnow())
-    id_usuario = database.Column(database.Integer, database.ForeignKey('usuario.id'), nullable=False)
-
-
-class Projeto(database.Model):
-    id = database.Column(database.Integer, primary_key=True)
+    icone =database.Column(database.String, default='default.png')
     nome = database.Column(database.String, nullable=False)
     categoria = database.Column(database.String, nullable=False)
     descricao = database.Column(database.String, nullable=False)
     link_repositorio = database.Column(database.String, nullable=False)
-    icone = database.Column(database.String, nullable=False)
+    data_criacao = database.Column(database.DateTime, nullable=False, default=datetime.utcnow())
+    id_usuario = database.Column(database.Integer, database.ForeignKey('usuario.id'), nullable=False)

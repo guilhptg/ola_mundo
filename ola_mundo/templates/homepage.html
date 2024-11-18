@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <title>Hello World</title>
-</head>
-<body>
-    <h1>Olá, mundo!</h1>
-    <h3>Um resumo da minha jornada na programação</h3>
+    <head>
+        <meta charset="UTF-8">
+        <title>Hello World</title>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    {% include 'navbar.html' %}
+    <body>
+        <h1>Olá, mundo!</h1>
+        <h3>Mais um portfólio para seus projetos</h3>
+    <br>
+        <a href="{{ url_for('login') }}">
+            <button>Login</button>
+        </a>
+    <a href="{{ url_for('criar_conta') }}">
+        <button>Criar Conta</button>
+    </a>
 
 
-            <img src="{{ url_for('static', filename='cyclone.jpeg') }}">
-</body>
+                <img src="{{ url_for('static', filename='fotos_site/projetest_logo.png') }}">
+
+    </body>
 </html>

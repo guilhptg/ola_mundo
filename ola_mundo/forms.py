@@ -1,4 +1,6 @@
 # Formuários
+from datetime import datetime
+from email.policy import default
 from wsgiref.validate import validator
 
 from email_validator import validate_email
@@ -9,6 +11,7 @@ from wtforms import StringField, PasswordField, SubmitField, FileField
 from wtforms.fields.simple import URLField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError, length
 
+from ola_mundo import database
 from ola_mundo.models import Usuario
 
 # Adicionar RECAPTCHA
@@ -32,13 +35,12 @@ class FormCriarConta(FlaskForm):
 
 
 class FormFoto(FlaskForm):
-    foto = FileField('Foto', validators=[DataRequired()])
-    botao_confimacao = SubmitField('Enviar')
-
-
-class FormProjetos(FlaskForm):
-    icone = FileField(validators=[FileRequired()], description='Escolha uma imagem para ser o Icone.')
+    icone = FileField('Icone', validators=[FileRequired()], description='Escolha uma imagem para ser o Icone.')
+    nome = StringField('Nome', validators=[DataRequired()])
     categoria = StringField('Categoria', validators=[DataRequired()], description='Digite o segmento ou categoria')
-    descricao = StringField('Descrição', validators=[DataRequired(), Length(10,400)], description='Diga em até 400 palavras sobre seu projeto')
+    descricao = StringField('Descrição', validators=[DataRequired(), Length(1,400)], description='Diga em até 400 palavras sobre seu projeto')
     link_repositorio = StringField('Link Repositório', validators=[DataRequired()], description='Digite o Link para o Repositório')
-    botao_confirmacao = SubmitField('Postar Projeto')
+    id_usuario = database.Column(database.Integer, database.ForeignKey('usuario', nullable=False))
+    data_criacao = database.Column(database.DateTime, nullable=False, default=datetime.utcnow)
+    botao_confirmacao = SubmitField('Enviar')
+
