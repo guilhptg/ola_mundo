@@ -137,6 +137,7 @@ def administracao():
         mensagem_formcategoria = True
     return render_template('administracao.html', usuario=current_user.id, formcategoria=formcategoria, mensagem_formcategoria=mensagem_formcategoria, categorias=categorias)
 
+# TODO if off-line
 
 # TODO confirgurações do perfil
 @app.route('/configuracao', methods=['GET', 'POST'])
