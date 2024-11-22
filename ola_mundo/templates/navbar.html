@@ -19,9 +19,11 @@
     </a>
 
     <div class="restante-nav">
-  <a href="{{ url_for('feed') }}">Feed</a>
+      <p class="botao-perfil">
+  <a href="{{ url_for('feed') }}">Feed</a></p>
       <p class="botao-perfil"><a href="{{ url_for('perfil', id_usuario=current_user.id) }}">Perfil</a></p>
-      <a href="{{ url_for('logout') }}">Sair</a>
+      <p class="botao-perfil">
+      <a href="{{ url_for('logout') }}">Sair</a></p>
     </div>
   </nav>
 </header>

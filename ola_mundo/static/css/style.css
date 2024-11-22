@@ -132,6 +132,32 @@ img {
   font-family: Montserrat;
 }
 
+.div-select {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 5px;
+}
+
+.select {
+  width: 100%;
+  font-size: 16px;
+  padding: 15px;
+  border: 2px solid #cdcdcd;
+  border-radius: 20px;
+  box-sizing: border-box;
+  font-family: Montserrat;
+  background-color: #fff;
+  appearance: none; /* Remove a seta padrão para personalizar, se necessário */
+}
+
+.select:focus {
+  outline: none;
+  border-color: #007bff; /* Adiciona destaque ao selecionar */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
 .botao-login {
   border-radius: 25px;
   padding: 15px 20px;

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}
+    <h2>Configurações</h2>
+{% endblock %}
+{% include 'navbar.html' %}
+
+{% block body %}
+
+  <body>
+
+   {% if formcategoria %}
+
+   <div class="bloco-arquivo">
+    <form method="POST" class="popup">
+
+        {{ formcategoria.csrf_token }}
+
+       <h3 class="">Categoria</h3>
+              <div class="div-input">
+                {{ formcategoria.nome.label(class="label") }}
+                {{ formcategoria.nome(class="input") }}
+              </div>
+
+              <div class="div-botao">
+                    {{ formcategoria.botao_confirmacao(class="botao-login") }}
+                  {% if mensagem_formcategoria %}
+                  <br>
+                  <h3>Categoria adicionada</h3>
+                  {% endif %}
+              </div>
+    </form>
+
+        <div class="container">
+            <ul>
+                {% for categoria in categorias %}
+                    <li>
+                        {{ categoria.nome }}
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+   </div>
+
+   {% else %}
+   <div class="bloco-add-img">
+       <h2>Você não deverias estar nessa página.</h2>
+   </div>
+    {% endif %}
+
+
+    <script>
+      let input = document.getElementById("foto");
+      let imagemArquivo = document.getElementById("imagem-arquivo");
+
+      input.addEventListener("change", () => {
+        let inputImagem = document.querySelector("input[type=file]").files[0];
+
+        imagemArquivo.classList.add("visivel");
+        imagemArquivo.innerText = inputImagem.name;
+      });
+    </script>
+  </body>
+
+{% endblock %}

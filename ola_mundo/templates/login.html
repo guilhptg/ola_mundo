@@ -64,11 +64,25 @@ Hello World - Login
 
               <div class="div-input">
                 {{ form.email.label(class="label") }}
+                                {% if form.email.erros %}
+                  {% for erro in form.email.erros %}
+                <p style="color: red">
+                {{ erro }}
+                </p>
+                {% endfor %}
+                {% endif %}
                 {{ form.email(class="input") }}
               </div>
 
               <div class="div-input">
                 {{ form.senha.label(class="label") }}
+                                {% if form.senha.erros %}
+                  {% for erro in form.senha.erros %}
+                <p style="color: red">
+                {{ erro }}
+                </p>
+                {% endfor %}
+                {% endif %}
                 {{ form.senha(class="input") }}
               </div>
 

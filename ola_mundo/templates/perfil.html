@@ -3,21 +3,52 @@
 
 {% block body %}
   <body>
-   {% if form %}
+      <div class="container">
+            <p class="botao-perfil">
+          <a href="{{ url_for('configuracao_conta') }}">Configuração</a></p>
+            <p class="botao-perfil">
+          <a href="{{ url_for('administracao') }}">Administracao</a></p>
+      </div>
+   {% if formfoto %}
     <div class="container">
         <form class="bloco-add-img" method="POST" enctype="multipart/form-data">
-            {{ form.csrf_token }}
-          <h2>{{ usuario.username }} - Enviar foto</h2>
+            {{ formfoto.csrf_token }}
+          <h2>{{ usuario.username }} - Postar projeto</h2>
+
           <div class="bloco-arquivo">
             <label for="foto" class="botao-arquivo">
               Escolher o arquivo:
-                    {{ form.icone.label() }}
-                    {{ form.icone(class="input-arquivo",  id="foto")}}
+                    {{ formfoto.icone.label() }}
+                    {{ formfoto.icone(class="input-arquivo",  id="foto")}}
             </label>
             <span id="imagem-arquivo" class=""></span>
-          </div>
 
-            {{ form.botao_confirmacao(class="botao-login") }}
+          </div>
+            <div class="bloco-arquivo">
+              <div class="div-input">
+                {{ formfoto.nome.label(class="label") }}
+                {{ formfoto.nome(class="input") }}
+              </div>
+
+              <div class="div-select">
+                {{ formfoto.categoria.label(class="label") }}
+                {{ formfoto.categoria(class="select") }}
+              </div>
+
+              <div class="div-input">
+                {{ formfoto.descricao.label(class="label") }}
+                {{ formfoto.descricao(class="input") }}
+              </div>
+
+              <div class="div-input">
+                {{ formfoto.link_repositorio.label(class="label") }}
+                {{ formfoto.link_repositorio(class="input") }}
+              </div>
+            </div>
+            {{ formfoto.botao_confirmacao(class="botao-login") }}
+            {% if mensagem_formfoto %}
+              <h3>Projeto adicionado !</h3>
+            {% endif %}
         </form>
     </div>
    {% else %}
@@ -28,11 +59,11 @@
 
 
       <div class="conteudo">
-            {% for foto in usuario.fotos %}
-        <div class="bloco-imagem">
+        {% for foto in usuario.fotos %}
+            <div class="bloco-imagem">
                 <img src="{{ url_for('static', filename='fotos_posts/{}'.format(foto.icone)) }}">
-        </div>
-            {% endfor %}
+            </div>
+        {% endfor %}
       </div>
 
     <script>

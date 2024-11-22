@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}
+    <h2>Configurações</h2>
+{% endblock %}
+{% include 'navbar.html' %}
+
+{% block body %}
+  <body>
+   {% if formcontato %}
+   <div class="bloco-arquivo">
+    <form method="POST" class="popup">
+
+        {{ formcontato.csrf_token }}
+
+
+       <h3>Contato</h3>
+              <div class="div-input">
+                {{ formcontato.linkedin.label(class="label") }}
+                {{ formcontato.linkedin(class="input") }}
+              </div>
+
+              <div class="div-input">
+                {{ formcontato.github.label(class="label") }}
+                {{ formcontato.github(class="input") }}
+              </div>
+
+              <div class="div-input">
+                {{ formcontato.email.label(class="label") }}
+                {{ formcontato.email(class="input") }}
+              </div>
+
+              <div class="div-input">
+                  {{ formcontato.botao_confirmacao(class="botao-login") }}
+              </div>
+
+    </form>
+   </div>
+   {% else %}
+   <div class="bloco-add-img">
+       <h2>Perfil - {{ usuario.username }}</h2>
+   </div>
+    {% endif %}
+
+
+      <div class="conteudo">
+        {% for foto in usuario.fotos %}
+            <div class="bloco-imagem">
+                <img src="{{ url_for('static', filename='fotos_posts/{}'.format(foto.icone)) }}">
+            </div>
+        {% endfor %}
+      </div>
+
+    <script>
+      let input = document.getElementById("foto");
+      let imagemArquivo = document.getElementById("imagem-arquivo");
+
+      input.addEventListener("change", () => {
+        let inputImagem = document.querySelector("input[type=file]").files[0];
+
+        imagemArquivo.classList.add("visivel");
+        imagemArquivo.innerText = inputImagem.name;
+      });
+    </script>
+  </body>
+
+{% endblock %}
