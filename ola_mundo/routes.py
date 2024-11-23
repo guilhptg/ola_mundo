@@ -40,10 +40,10 @@ def login():
 def criar_conta():
     formcriarconta = FormCriarConta()
     if formcriarconta.validate_on_submit():
-        senha = bcrypt.generate_password_hash(formcriarconta.senha.data)
+        senha = bcrypt.generate_password_hash(formcriarconta.senha.data).decode('utf-8')
         usuario = Usuario(
             username=formcriarconta.username.data,
-            senha=senha, email=formcriarconta.email.data
+            senha=senha, email=formcriarconta.email.data, is_superuser=False
         )
         database.session.add(usuario)
         database.session.commit()
